@@ -35,10 +35,12 @@
         <div id="player" class="card">            
             <div id="current-song">
                 <img id="current-img" src="" alt="Song Image" />
+                <h3 id="current-title">title</h3>
+                <p id="current-author">author</p>
                 <audio src="" id="audio-player" controls></audio>
             </div>
             <div class="center">
-                <button onclick="backward(currentSong)"><=</button>
+                <button onclick="backward()"><=</button>
                 <button onclick="forward()">=></button>
             </div>
             <div class="center">
@@ -49,7 +51,16 @@
         <div class="playlists card">
             <div class="center">
                 <input id="playlist-input" placeholder="Enter Playlist Name"/>
-                <button class="playlist-button">Create Playlist</button>
+                <button onclick="createPlaylist()" class="playlist-button">Create Playlist</button>
+            </div>
+            <div id="current-playlist">
+                <h3>Current Playlist</h3>
+            </div>
+            <div id="all-playlist">
+                <h3>All Playlists</h3>
+                <div id="show-playlists">
+
+                </div>
             </div>
         </div>
     </container>

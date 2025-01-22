@@ -91,6 +91,7 @@ container {
     display: flex;
     flex-direction: column;
     padding: 1rem;
+    background-color: darkslategray;
 }
 
 button {
@@ -114,6 +115,9 @@ button {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    border: solid .05rem black;
+    border-radius: .25rem;
+    cursor: pointer;
 }
 
 #playlist-input {
@@ -124,9 +128,9 @@ button {
 }
 
 .playlist-button {
-height: 40px;
-padding: 0 15px;
-font-size: 16px;
-cursor: pointer;
-box-sizing: border-box;
+    height: 40px;
+    padding: 0 15px;
+    font-size: 16px;
+    cursor: pointer;
+    box-sizing: border-box;
 }

@@ -11,6 +11,8 @@ const data = [
 ];
 
 let currentSong = 1
+let allPlayLists = []
+let currentPlaylist = []
 
 function toggleTheme(){
     isChecked = document.getElementById("theme-toggle").checked
@@ -34,17 +36,38 @@ function showSongs(){
         songTitle.textContent = `${song.name} - ${song.artist}`
         songTitle.classList.add("center")
         songCard.appendChild(songTitle)
+        songCard.onclick= ()=>selectSong(song.id)
         newDiv.appendChild(songCard)
         songCard.classList.add("song-card")
     }
 }
 
+function showPlaylists(){
+    const newDiv = document.getElementById("show-playlists");
+    newDiv.innerHTML = ""
+    
+    for (const item of allPlayLists){
+        const playlistCard = document.createElement("div")
+        const playlistTitle = document.createElement("p")
+        playlistTitle.textContent = item
+        playlistTitle.classList.add("center")
+        playlistCard.appendChild(playlistTitle)
+        newDiv.appendChild(playlistCard)
+        playlistCard.classList.add("song-card")
+    }
+}
+
 function selectSong(selectedSong){
+    const song = data.find(item=>item.id==selectedSong)
     const currentImage = document.getElementById('current-img');
     const currentSong = document.getElementById('audio-player')
-    currentImage.src = data.find(item=>item.id==selectedSong).image
-    currentSong.src = data.find(item=>item.id==selectedSong).song
-    player.play()
+    const currentTitle = document.getElementById('current-title')
+    const currentAuthor = document.getElementById('current-author')
+    currentImage.src = song.image
+    currentSong.src = song.song
+    currentTitle.innerHTML = song.name
+    currentAuthor.innerHTML = song.artist
+    currentSong.play()
 }
 
 function forward(){
@@ -65,5 +88,14 @@ function backward(){
     selectSong(currentSong)
 }
 
+function createPlaylist(){
+    const playlist = document.getElementById("playlist-input")
+    if(playlist.value.length){
+        allPlayLists.push(playlist.value)
+        showPlaylists()
+    }
+}
+
 showSongs()
 selectSong(currentSong)
+showPlaylists()
