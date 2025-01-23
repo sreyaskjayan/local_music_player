@@ -96,6 +96,21 @@ function createPlaylist(){
     }
 }
 
+function showPlaylistSongs(){
+    const newDiv = document.getElementById("show-playlists");
+    newDiv.innerHTML = ""
+    
+    for (const item of allPlayLists){
+        const playlistCard = document.createElement("div")
+        const playlistTitle = document.createElement("p")
+        playlistTitle.textContent = item
+        playlistTitle.classList.add("center")
+        playlistCard.appendChild(playlistTitle)
+        newDiv.appendChild(playlistCard)
+        playlistCard.classList.add("song-card")
+    }    
+}
+
 showSongs()
 selectSong(currentSong)
 showPlaylists()
