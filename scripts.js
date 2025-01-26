@@ -91,7 +91,8 @@ function backward(){
 function createPlaylist(){
     const playlist = document.getElementById("playlist-input")
     if(playlist.value.length){
-        allPlayLists.push(playlist.value)
+        // allPlayLists.push(playlist.value)
+        allPlayLists[playlist.value] = []
         showPlaylists()
     }
 }
