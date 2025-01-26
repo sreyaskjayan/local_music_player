@@ -11,8 +11,8 @@ const data = [
 ];
 
 let currentSong = 1
-let allPlayLists = []
-let currentPlaylist = []
+let allPlayLists = {}
+let currentPlaylist
 
 function toggleTheme(){
     isChecked = document.getElementById("theme-toggle").checked
@@ -42,20 +42,6 @@ function showSongs(){
     }
 }
 
-function showPlaylists(){
-    const newDiv = document.getElementById("show-playlists");
-    newDiv.innerHTML = ""
-    
-    for (const item of allPlayLists){
-        const playlistCard = document.createElement("div")
-        const playlistTitle = document.createElement("p")
-        playlistTitle.textContent = item
-        playlistTitle.classList.add("center")
-        playlistCard.appendChild(playlistTitle)
-        newDiv.appendChild(playlistCard)
-        playlistCard.classList.add("song-card")
-    }
-}
 
 function selectSong(selectedSong){
     const song = data.find(item=>item.id==selectedSong)
@@ -70,6 +56,7 @@ function selectSong(selectedSong){
     currentSong.play()
 }
 
+
 function forward(){
     if(currentSong==data.length){
         currentSong=1
@@ -78,6 +65,7 @@ function forward(){
     }
     selectSong(currentSong)
 }
+
 
 function backward(){
     if(currentSong==1){
@@ -88,6 +76,7 @@ function backward(){
     selectSong(currentSong)
 }
 
+
 function createPlaylist(){
     const playlist = document.getElementById("playlist-input")
     if(playlist.value.length){
@@ -97,20 +86,49 @@ function createPlaylist(){
     }
 }
 
-function showPlaylistSongs(){
+
+function showPlaylists(){
     const newDiv = document.getElementById("show-playlists");
     newDiv.innerHTML = ""
     
-    for (const item of allPlayLists){
+    for (const item of Object.keys(allPlayLists)){
         const playlistCard = document.createElement("div")
         const playlistTitle = document.createElement("p")
         playlistTitle.textContent = item
         playlistTitle.classList.add("center")
         playlistCard.appendChild(playlistTitle)
+        playlistCard.onclick = () => selectedPlaylistSongs(item)
         newDiv.appendChild(playlistCard)
         playlistCard.classList.add("song-card")
-    }    
+    }
 }
+
+
+function selectedPlaylistSongs(current){
+    currentPlaylist = current
+    const result = allPlayLists[current]
+    const newDiv = document.getElementById("playlist-songs");
+    newDiv.innerHTML = ""
+
+    for (const song of result){    
+        const songCard = document.createElement("div")
+        const songTitle = document.createElement("p")
+        songTitle.textContent = `${song.name} - ${song.artist}`
+        songTitle.classList.add("center")
+        songCard.appendChild(songTitle)
+        songCard.onclick= ()=>selectSong(song.id)
+        newDiv.appendChild(songCard)
+        songCard.classList.add("song-card")
+    }
+}
+
+
+function addToPlaylist(){
+    const songToAdd = data.find(item=>item.id==currentSong)
+    allPlayLists[currentPlaylist].push(songToAdd)
+    selectedPlaylistSongs(currentPlaylist)
+}
+
 
 showSongs()
 selectSong(currentSong)
