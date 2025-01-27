@@ -10,10 +10,14 @@
     <header>
         <div class="toggle-align">
             <label class="toggle-switch">
-                <input id="theme-toggle"  onclick="toggleTheme()" type="checkbox" />
-                <span class="slider"></span>
+                <input id="theme-toggle" onclick="toggleTheme()" type="checkbox" />
+                <span class="slider">
+                    <span>Light</span>
+                    <span>Dark</span>
+                </span>
             </label>
         </div>
+        
         <h1 class="center">Music Player</h1>
     </header>
     <container>
@@ -44,7 +48,7 @@
                 <button onclick="forward()">=></button>
             </div>
             <div class="center">
-                <button onclick="addToPlaylist()">Add To Playlist</button>
+                <button onclick="addToPlaylist()">Add to Playlist</button>
             </div>
         </div>
 

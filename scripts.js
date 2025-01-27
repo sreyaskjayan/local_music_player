@@ -16,7 +16,7 @@ let currentPlaylist
 
 function toggleTheme(){
     isChecked = document.getElementById("theme-toggle").checked
-    document.body.style.backgroundColor = !isChecked?"darkslategrey":"white";
+    document.body.style.backgroundColor = isChecked?"darkslategrey":"white";
 }
 
 function showSongs(){
@@ -36,14 +36,14 @@ function showSongs(){
         songTitle.textContent = `${song.name} - ${song.artist}`
         songTitle.classList.add("center")
         songCard.appendChild(songTitle)
-        songCard.onclick= ()=>selectSong(song.id)
+        songCard.onclick= ()=>renderCurrentSong(song.id)
         newDiv.appendChild(songCard)
         songCard.classList.add("song-card")
     }
 }
 
 
-function selectSong(selectedSong){
+function renderCurrentSong(selectedSong){
     const song = data.find(item=>item.id==selectedSong)
     const currentImage = document.getElementById('current-img');
     const currentSong = document.getElementById('audio-player')
@@ -63,7 +63,7 @@ function forward(){
     } else {
         currentSong+=1
     }
-    selectSong(currentSong)
+    renderCurrentSong(currentSong)
 }
 
 
@@ -73,14 +73,13 @@ function backward(){
     } else {
         currentSong-=1
     }
-    selectSong(currentSong)
+    renderCurrentSong(currentSong)
 }
 
 
 function createPlaylist(){
     const playlist = document.getElementById("playlist-input")
     if(playlist.value.length){
-        // allPlayLists.push(playlist.value)
         allPlayLists[playlist.value] = []
         showPlaylists()
     }
@@ -97,14 +96,14 @@ function showPlaylists(){
         playlistTitle.textContent = item
         playlistTitle.classList.add("center")
         playlistCard.appendChild(playlistTitle)
-        playlistCard.onclick = () => selectedPlaylistSongs(item)
+        playlistCard.onclick = () => renderPlaylistSong(item)
         newDiv.appendChild(playlistCard)
         playlistCard.classList.add("song-card")
     }
 }
 
 
-function selectedPlaylistSongs(current){
+function renderPlaylistSong(current){
     currentPlaylist = current
     const result = allPlayLists[current]
     const newDiv = document.getElementById("playlist-songs");
@@ -116,7 +115,7 @@ function selectedPlaylistSongs(current){
         songTitle.textContent = `${song.name} - ${song.artist}`
         songTitle.classList.add("center")
         songCard.appendChild(songTitle)
-        songCard.onclick= ()=>selectSong(song.id)
+        songCard.onclick= ()=>renderCurrentSong(song.id)
         newDiv.appendChild(songCard)
         songCard.classList.add("song-card")
     }
@@ -126,10 +125,10 @@ function selectedPlaylistSongs(current){
 function addToPlaylist(){
     const songToAdd = data.find(item=>item.id==currentSong)
     allPlayLists[currentPlaylist].push(songToAdd)
-    selectedPlaylistSongs(currentPlaylist)
+    renderPlaylistSong(currentPlaylist)
 }
 
 
 showSongs()
-selectSong(currentSong)
+renderCurrentSong(currentSong)
 showPlaylists()
